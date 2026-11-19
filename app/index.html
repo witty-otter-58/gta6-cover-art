@@ -3,20 +3,84 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cover Snap</title>
+<title>Sunset Coast — Cover Art Maker</title>
 <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 <main class="app">
-  <section class="controls">
-    <h1>Cover Snap</h1>
-    <p>A photo and a caption, made into a square cover.</p>
-    <label>Photo <input id="photo" type="file" accept="image/*"></label>
-    <label>Caption <input id="caption" type="text" maxlength="40" value="Sunset Heist"></label>
-    <button id="export" type="button">Export PNG 1080 x 1080</button>
-    <p id="status" role="status"></p>
+  <section class="panel controls" aria-label="Cover controls">
+    <h1>Sunset Coast</h1>
+    <p class="tag">Turn your photos into a multi-panel poster cover. Pick photos, crop each one, write a caption, export a PNG. Your photos never leave this machine.</p>
+
+    <fieldset class="photos">
+      <legend>Photos — up to three</legend>
+      <div class="slot" data-slot="0">
+        <label class="file-btn">Photo 1 <input id="photo0" type="file" accept="image/*"></label>
+        <button type="button" class="sample" data-sample="pier">Use sample</button>
+      </div>
+      <div class="slot" data-slot="1">
+        <label class="file-btn">Photo 2 <input id="photo1" type="file" accept="image/*"></label>
+        <button type="button" class="sample" data-sample="boulevard">Use sample</button>
+      </div>
+      <div class="slot" data-slot="2">
+        <label class="file-btn">Photo 3 <input id="photo2" type="file" accept="image/*"></label>
+        <button type="button" class="sample" data-sample="pier">Use sample</button>
+      </div>
+      <label class="check"><input id="onePhoto" type="checkbox"> One photo fills every panel</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Crop the selected panel photo</legend>
+      <label>Panel photo
+        <select id="cropSlot">
+          <option value="0">Photo 1</option>
+          <option value="1">Photo 2</option>
+          <option value="2">Photo 3</option>
+        </select>
+      </label>
+      <label>Zoom <input id="zoom" type="range" min="100" max="250" value="100"></label>
+      <label>Move left / right <input id="panX" type="range" min="-100" max="100" value="0"></label>
+      <label>Move up / down <input id="panY" type="range" min="-100" max="100" value="0"></label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Look</legend>
+      <label>Layout
+        <select id="layout">
+          <option value="grid">Four panels — 2 × 2</option>
+          <option value="strips">Three panels — vertical strips</option>
+          <option value="hero">Hero panel + two below</option>
+        </select>
+      </label>
+      <label>Colour grade
+        <select id="grade">
+          <option value="sunset">Vice sunset — orange to magenta</option>
+          <option value="neon">Neon nights — cyan to pink</option>
+          <option value="teal">Teal dusk — teal to violet</option>
+        </select>
+      </label>
+      <label>Caption <input id="caption" type="text" maxlength="40" value="Sunset Heist"></label>
+      <label>Tagline <input id="tagline" type="text" maxlength="60" value="One last job on the coast"></label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Export</legend>
+      <label>Size
+        <select id="size">
+          <option value="1080x1080">1080 × 1080 — square post</option>
+          <option value="1080x1350">1080 × 1350 — portrait post</option>
+          <option value="1920x1080">1920 × 1080 — wide post</option>
+        </select>
+      </label>
+      <button id="export" type="button">Export PNG</button>
+      <p id="status" role="status"></p>
+    </fieldset>
   </section>
-  <canvas id="cover" width="1080" height="1080" aria-label="The cover"></canvas>
+
+  <section class="preview" aria-label="Cover preview">
+    <canvas id="cover" width="1080" height="1080"></canvas>
+    <p class="hint">Live preview — what you see is what the PNG will be.</p>
+  </section>
 </main>
 <script type="module" src="./src/main.js"></script>
 </body>
